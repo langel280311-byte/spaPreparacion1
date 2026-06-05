@@ -1,0 +1,14 @@
+{
+  "usuarios": [
+    { "id": 1, "nombre": "Admin", "email": "admin@tienda.com", "password": "admin123", "rol": "admin" },
+    { "id": 2, "nombre": "Carlos", "email": "carlos@tienda.com", "password": "carlos123", "rol": "usuario" }
+  ],
+  "productos": [
+    { "id": 1, "nombre": "Audífonos Bluetooth Pro", "precio": 89.99, "categoria": "Electrónica", "stock": 10, "descripcion": "Sonido envolvente 360°" },
+    { "id": 2, "nombre": "Camiseta Polo Classic", "precio": 29.99, "categoria": "Ropa", "stock": 25, "descripcion": "100% algodón premium" },
+    { "id": 3, "nombre": "Lámpara LED Escritorio", "precio": 45.00, "categoria": "Hogar", "stock": 15, "descripcion": "3 niveles de intensidad" },
+    { "id": 4, "nombre": "Granola Artesanal 500g", "precio": 14.50, "categoria": "Alimentos", "stock": 40, "descripcion": "Sin azúcar añadida" },
+    { "id": 5, "nombre": "Teclado Mecánico RGB", "precio": 120.00, "categoria": "Electrónica", "stock": 8, "descripcion": "Switches Cherry MX Red" },
+    { "id": 6, "nombre": "Zapatillas Running", "precio": 75.00, "categoria": "Ropa", "stock": 18, "descripcion": "Amortiguación reactiva" }
+  ]
+}

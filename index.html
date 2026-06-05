@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TiendaSPA — Login</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body class="login-body">
+
+  <!--
+    ╔══════════════════════════════════════════╗
+    ║  PÁGINA DE LOGIN / AUTENTICACIÓN         ║
+    ║  Esta es la única página pública.        ║
+    ║  Si el usuario ya inició sesión,         ║
+    ║  auth.js lo redirige a dashboard.html    ║
+    ╚══════════════════════════════════════════╝
+  -->
+
+  <div class="login-wrap">
+    <div class="login-card">
+      <div class="login-logo">🛍️</div>
+      <h1 class="login-title">TiendaSPA</h1>
+      <p class="login-sub">Inicia sesión para continuar</p>
+
+      <!-- Alerta de error (oculta por defecto) -->
+      <div class="alert-error" id="login-error" style="display:none;">
+        Credenciales incorrectas. Intenta de nuevo.
+      </div>
+
+      <div class="field">
+        <label for="login-email">Correo electrónico</label>
+        <input type="email" id="login-email" placeholder="tu@correo.com" autocomplete="email"/>
+      </div>
+
+      <div class="field">
+        <label for="login-password">Contraseña</label>
+        <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password"/>
+      </div>
+
+      <button class="btn-primary btn-block" id="btn-login">Iniciar sesión</button>
+
+      <!-- Credenciales de prueba visibles para el examen -->
+      <div class="login-hint">
+        <strong>Admin:</strong> admin@tienda.com / admin123<br/>
+        <strong>Usuario:</strong> carlos@tienda.com / carlos123
+      </div>
+    </div>
+  </div>
+
+  <!--
+    Cargamos auth.js ANTES que cualquier otro script.
+    auth.js maneja: login, logout, sesión, rutas protegidas.
+  -->
+  <script src="auth.js"></script>
+  <script src="login.js"></script>
+</body>
+</html>

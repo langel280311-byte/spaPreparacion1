@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TiendaSPA — Dashboard</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!--
+    ╔══════════════════════════════════════════════════════════╗
+    ║  PÁGINA PRINCIPAL — RUTA PROTEGIDA                       ║
+    ║  auth.js verifica al inicio si hay sesión activa.        ║
+    ║  Si no hay sesión → redirige automáticamente al login.   ║
+    ╚══════════════════════════════════════════════════════════╝
+  -->
+
+  <!-- ── BARRA SUPERIOR ── -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="topbar-logo">🛍️ TiendaSPA</span>
+    </div>
+    <div class="topbar-right">
+      <!-- Nombre del usuario y su rol (se inyectan desde auth.js) -->
+      <span class="user-info">
+        <span id="user-name">–</span>
+        <span class="badge-rol" id="user-rol">–</span>
+      </span>
+      <button class="btn-logout" id="btn-logout">Salir</button>
+    </div>
+  </header>
+
+  <!-- ── NAVEGACIÓN SPA ── -->
+  <!--
+    SPA = Single Page Application.
+    En lugar de cargar páginas distintas, mostramos/ocultamos
+    secciones con JS. Cada botón cambia la "vista" activa.
+  -->
+  <nav class="spa-nav">
+    <button class="nav-btn active" data-view="productos">📦 Productos</button>
+    <!--
+      El botón "Gestión de Usuarios" solo aparece si el rol es "admin".
+      app.js lo muestra/oculta según la sesión.
+    -->
+    <button class="nav-btn admin-only" data-view="usuarios" style="display:none;">👥 Usuarios</button>
+  </nav>
+
+  <!-- ── CONTENIDO PRINCIPAL ── -->
+  <main class="container">
+
+    <!-- ══════════════════════════════
+         VISTA: PRODUCTOS (visible por defecto)
+         ══════════════════════════════ -->
+    <section id="view-productos" class="view active">
+
+      <div class="section-header">
+        <div>
+          <h2>Catálogo de Productos</h2>
+          <span id="count-label" class="count-label">0 productos</span>
+        </div>
+        <div class="toolbar-right">
+          <input type="text" id="search" placeholder="Buscar..."/>
+          <select id="filter-cat">
+            <option value="">Todas las categorías</option>
+            <option value="Electrónica">Electrónica</option>
+            <option value="Ropa">Ropa</option>
+            <option value="Hogar">Hogar</option>
+            <option value="Alimentos">Alimentos</option>
+          </select>
+          <!--
+            Botón "Nuevo producto" solo visible para admins.
+            app.js lo muestra según el rol de la sesión.
+          -->
+          <button class="btn-primary admin-only" id="btn-nuevo" style="display:none;">
+            + Nuevo
+          </button>
+        </div>
+      </div>
+
+      <!-- Las tarjetas de productos se generan aquí con JS -->
+      <div class="grid" id="grid">
+        <p class="empty-msg" id="empty-msg" style="display:none;">
+          No se encontraron productos.
+        </p>
+      </div>
+
+    </section>
+
+    <!-- ══════════════════════════════
+         VISTA: USUARIOS (solo admin)
+         ══════════════════════════════ -->
+    <section id="view-usuarios" class="view" style="display:none;">
+      <div class="section-header">
+        <h2>Gestión de Usuarios</h2>
+      </div>
+      <!-- La tabla de usuarios se genera aquí con JS -->
+      <div id="tabla-usuarios"></div>
+    </section>
+
+  </main>
+
+  <!-- ══════════════════════════════
+       MODAL — Crear / Editar Producto
+       ══════════════════════════════ -->
+  <div class="modal-bg" id="modal-bg">
+    <div class="modal">
+      <h2 id="modal-title">Nuevo producto</h2>
+
+      <div class="field">
+        <label for="f-nombre">Nombre</label>
+        <input type="text" id="f-nombre" placeholder="Ej: Camiseta azul"/>
+      </div>
+      <div class="field">
+        <label for="f-precio">Precio ($)</label>
+        <input type="number" id="f-precio" placeholder="0.00" min="0" step="0.01"/>
+      </div>
+      <div class="field">
+        <label for="f-categoria">Categoría</label>
+        <select id="f-categoria">
+          <option>Electrónica</option>
+          <option>Ropa</option>
+          <option>Hogar</option>
+          <option>Alimentos</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-stock">Stock</label>
+        <input type="number" id="f-stock" placeholder="0" min="0"/>
+      </div>
+      <div class="field">
+        <label for="f-descripcion">Descripción</label>
+        <input type="text" id="f-descripcion" placeholder="Breve descripción..."/>
+      </div>
+
+      <!-- Campo oculto: guarda el id cuando estamos editando -->
+      <input type="hidden" id="f-id"/>
+
+      <!-- Mensajes de error de validación -->
+      <p class="form-error" id="form-error" style="display:none;"></p>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" id="btn-cancel">Cancelar</button>
+        <button class="btn-primary" id="btn-guardar">✔ Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── NOTIFICACIÓN TOAST ── -->
+  <div class="toast" id="toast"></div>
+
+  <!--
+    Orden de carga de scripts:
+    1. auth.js  → protege la ruta y expone la sesión
+    2. app.js   → lógica del CRUD y la SPA
+  -->
+  <script src="auth.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
